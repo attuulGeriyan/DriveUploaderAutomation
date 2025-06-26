@@ -1,0 +1,26 @@
+# Sensitive files
+credentials.json
+*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+*.egg
+
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

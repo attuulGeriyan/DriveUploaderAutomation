@@ -29,14 +29,20 @@ Automated system that monitors your Downloads folder for new files and uploads t
 
 
 4. Set up Google Drive API:
-   - Go to Google Cloud Console
-   - Create a new project
+   - Go to Google Cloud Console (https://console.cloud.google.com)
+   - Create a new project or select an existing one
    - Enable Google Drive API
-   - Create credentials (OAuth 2.0 Client ID)
-   - Download credentials.json
+   - Create OAuth 2.0 credentials for a Desktop App:
+     - Go to APIs & Services > Credentials
+     - Click "Create Credentials" > "OAuth client ID"
+     - Select "Desktop app" as the application type
+     - Give it a name (e.g., "Drive Uploader")
+     - Click Create
+     - Download the JSON file and save it as `credentials.json` in your project root directory
 
-5. Run the setup script:
-
+5. Run the application once to generate `token.json`:
+   - The first run will open a browser window asking for Google Drive authorization
+   - After authorization, the `token.json` file will be automatically created
 
 ## Usage
 

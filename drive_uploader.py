@@ -29,18 +29,27 @@ def authenticate():
     return creds
 
 def get_folder_id(service, folder_name):
-    # Search for the folder by name
-    query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder'"
-    results = service.files().list(q=query, spaces='drive', fields='files(id, name)').execute()
-    folders = results.get('files', [])
-    if folders:
-        return folders[0]['id']
-    else:
-        # Create folder if it doesn't exist
-        file_metadata = {
-            'name': folder_name,
-            'mimeType': 'application/vnd.google-apps.folder'
-        }
+    try:
+        # Search for the folder by name
+        query = f"name = '{folder_name}' and mimeType = 'application/vnd.google-apps.folder'"
+        results = service.files().list(q=query, spaces='drive', fields='files(id, name)').execute()
+        folders = results.get('files', [])
+        if folders:
+            print(f"📁 Found existing folder: {folder_name}")
+            return folders[0]['id']
+        else:
+            print(f"📁 Creating new folder: {folder_name}")
+            # Create folder if it doesn't exist
+            file_metadata = {
+                'name': folder_name,
+                'mimeType': 'application/vnd.google-apps.folder'
+            }
+            folder = service.files().create(body=file_metadata, fields='id').execute()
+            print(f"📁 Created folder: {folder_name}")
+            return folder['id']
+    except Exception as e:
+        print(f"⚠️ Error accessing Google Drive: {str(e)}")
+        raise
         folder = service.files().create(body=file_metadata, fields='id').execute()
         return folder.get('id')
 
